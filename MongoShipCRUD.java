@@ -33,13 +33,15 @@ public class MongoShipCRUD {
      * @param healthPoints The health points of the ship
      *
      */
-
     public void insertShipHealth(int shipId, int healthPoints) {
-        Document shipDocument = new Document("ship_id", shipId)
-
-                .append("health_points", healthPoints);
-        collection.insertOne(shipDocument);
-        System.out.println("Ship health points inserted successfully");
+        try {
+            Document shipDocument = new Document("ship_id", shipId)
+                    .append("health_points", healthPoints);
+            collection.insertOne(shipDocument);
+            System.out.println("Ship health points inserted successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -50,12 +52,14 @@ public class MongoShipCRUD {
      */
     public void updateShipHealth(int shipId, int newHealthPoints)
     {
-        Document filter = new Document("ship_id", shipId);
-        Document update = new Document("$set", new Document("health_points", newHealthPoints));
-
-        collection.updateOne(filter, update);
-
-        System.out.println("Ship health points updated successfully");
+        try {
+            Document filter = new Document("ship_id", shipId);
+            Document update = new Document("$set", new Document("health_points", newHealthPoints));
+            collection.updateOne(filter, update);
+            System.out.println("Ship health points updated successfully");
+        }catch (Exception e){
+        e.printStackTrace();
+        }
     }
 
     /**

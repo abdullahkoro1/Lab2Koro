@@ -37,6 +37,6 @@ public class Game {
         int shipHealth = mongoship.readShipHealth(1);
         System.out.println("Ship Health: " + shipHealth);
         // Delete Ship health points
-        mongoship.deleteShipHealth(1);
+        //mongoship.deleteShipHealth(1);
     }
 }
