@@ -16,11 +16,6 @@ import org.bson.Document;
 
 public class MongoShipCRUD {
 
-    /**
-     * Main method to execute CRUD operations on ship health points in the MongoDB database
-     *
-     */
-
     public static void main(String[] args)
     {
         try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017"))
@@ -66,9 +61,7 @@ public class MongoShipCRUD {
     private static void insertShipHealth(MongoCollection<Document> collection, int shipId, int healthPoints) {
         Document shipDocument = new Document("ship_id", shipId)
 
-
                 .append("health_points", healthPoints);
-
         collection.insertOne(shipDocument);
 
         System.out.println("Ship health points inserted successfully");

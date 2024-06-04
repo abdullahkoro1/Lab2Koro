@@ -13,8 +13,6 @@ public class Game {
     public static void main(String[] args) {
 
         // Instances of game objects
-
-
         Player player = new Player("Player1");
         Ship ship = new Ship("Falcon", 100);
         Obstacle obstacle = new Obstacle("Asteroid");
