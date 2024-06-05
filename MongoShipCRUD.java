@@ -16,89 +16,62 @@ import org.bson.Document;
 
 public class MongoShipCRUD {
 
-    /**
-     * Main method to execute CRUD operations on ship health points in the MongoDB database
-     *
-     */
+    MongoClient mongoClient;
+    MongoDatabase database;
+    MongoCollection<Document> collection;
 
-    public static void main(String[] args)
-    {
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017"))
-
-        {
-            MongoDatabase database = mongoClient.getDatabase("ShipHealth");
-
-            MongoCollection<Document> collection = database.getCollection("ship_health");
-
-            // Insert Ship health points
-
-            insertShipHealth(collection, 1, 100);
-
-            // Update Ship health points
-
-            updateShipHealth(collection, 1, 80);
-
-            // Read Ship health points
-
-            int shipHealth = readShipHealth(collection, 1);
-
-            System.out.println("Ship Health: " + shipHealth);
-
-            // Delete Ship health points
-
-            deleteShipHealth(collection, 1);
-
-        }
+    public MongoShipCRUD(String collection){
+        mongoClient = MongoClients.create("mongodb://localhost:27017");
+        database = mongoClient.getDatabase("ShipHealth");
+        this.collection = database.getCollection(collection);
     }
 
     /**
      * Inserts ship health points into the MongoDB collection
      *
-     *
-     * @param collection  The MongoDB collection for ship health points
-     *
      * @param shipId      The ID of the ship
-     *
      * @param healthPoints The health points of the ship
      *
      */
 
-    private static void insertShipHealth(MongoCollection<Document> collection, int shipId, int healthPoints) {
-        Document shipDocument = new Document("ship_id", shipId)
-
-
-                .append("health_points", healthPoints);
-
-        collection.insertOne(shipDocument);
-
-        System.out.println("Ship health points inserted successfully");
+    public void insertShipHealth(int shipId, int healthPoints) {
+        try {
+            Document shipDocument = new Document("ship_id", shipId)
+                    .append("health_points", healthPoints);
+            collection.insertOne(shipDocument);
+            System.out.println("Ship health points inserted successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
      * Updates ship health points in the MongoDB collection
      *
-     * @param collection  The MongoDB collection for ship health points
      * @param shipId      The ID of the ship
      * @param newHealthPoints The new health points of the ship
      */
-    private static void updateShipHealth(MongoCollection<Document> collection, int shipId, int newHealthPoints)
+    public void updateShipHealth(int shipId, int newHealthPoints)
     {
-        Document filter = new Document("ship_id", shipId);
-        Document update = new Document("$set", new Document("health_points", newHealthPoints));
 
-        collection.updateOne(filter, update);
-
-        System.out.println("Ship health points updated successfully");
+        try {
+            Document filter = new Document("ship_id", shipId);
+            Document update = new Document("$set", new Document("health_points", newHealthPoints));
+            collection.updateOne(filter, update);
+            System.out.println("Ship health points updated successfully");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
      * Reads ship health points from the MongoDB collection
      *
-     * @param collection The MongoDB collection for ship health points
      * @param shipId      The ID of the ship
      * @return The health points of the ship
      */
-    private static int readShipHealth(MongoCollection<Document> collection, int shipId)
+    public int readShipHealth(int shipId)
+
     {
         Document filter = new Document("ship_id", shipId);
 
@@ -116,12 +89,12 @@ public class MongoShipCRUD {
     /**
      * Deletes ship health points from the MongoDB collection
      *
-     * @param collection The MongoDB collection for ship health points
      * @param shipId      The ID of the ship
      *
      */
-    private static void deleteShipHealth(MongoCollection<Document> collection, int shipId)
+    public void deleteShipHealth(int shipId)
     {
+
         Document filter = new Document("ship_id", shipId);
         collection.deleteOne(filter);
 
