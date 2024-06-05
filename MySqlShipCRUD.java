@@ -4,8 +4,8 @@
  * Course: IST 242
  * Author: Abdullah Koro
  * Date Developed: 5/27/24
- * Last Date Changed: 6/3/24
- * Revision: 2
+ * Last Date Changed: 6/4/24
+ * Revision: 3
  */
 
 import java.sql.Connection;
@@ -71,7 +71,7 @@ public class MySqlShipCRUD {
             System.out.println("Ship Health: " + shipHealth);
 
             // Delete Ship health points
-            deleteShipHealth(connection, 1);
+            // deleteShipHealth(connection, 1);
 
         } catch (SQLException e)
 
